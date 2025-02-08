@@ -2,7 +2,7 @@ let inputTitle = document.getElementById("input-title");
 let inputDescription = document.getElementById("input-description");
 let listContainer = document.getElementById("list-container");
 let addButton = document.querySelector(".add-button");
-let taskForm = document.querySelector(".form");
+let taskForm = document.getElementById("task-form");
 
 inputTitle.addEventListener("input", () => {
     sessionStorage.setItem("draftTitle", inputTitle.value);
@@ -12,33 +12,34 @@ inputDescription.addEventListener("input", () => {
     sessionStorage.setItem("draftDescription", inputDescription.value);
 })
 
-
-
-taskForm.addEventListener("click", todoInput);
-
-function todoInput(event) {
+taskForm.addEventListener("click", (event) => {
     if (event.target === taskForm) {
         inputTitle.focus();
     }
-    
+});
 
-    inputTitle.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            inputDescription.focus();
-        }
-    });
+inputTitle.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        inputDescription.focus();
+    }
+});
 
-    inputDescription.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            addTask();
-        }
-    });
-}
+inputDescription.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        addButton.click();
+    }
+});
 
 
+taskForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-addButton.addEventListener("click", addTask);
+    await addTask();    
+});
+
+
 
 // function to add task to the list
 async function addTask() {

@@ -87,7 +87,7 @@ header div {
     width: 75px;
 }
 
-.form {
+form {
     display: flex;
     flex-direction: column;
     background: #edeef0;
